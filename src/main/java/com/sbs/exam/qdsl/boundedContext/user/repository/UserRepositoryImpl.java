@@ -1,9 +1,10 @@
 package com.sbs.exam.qdsl.boundedContext.user.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.sbs.exam.qdsl.boundedContext.user.entity.QSiteUser;
 import com.sbs.exam.qdsl.boundedContext.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
+
+import static com.sbs.exam.qdsl.boundedContext.user.entity.QSiteUser.siteUser;
 
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepositoryCustom {
@@ -16,9 +17,6 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     FROM site_user
     WHERE id = 1
     */
-
-    QSiteUser siteUser = QSiteUser.siteUser;
-
 
     return jpaQueryFactory
         .selectFrom(siteUser) // SELECT * FROM site_user
