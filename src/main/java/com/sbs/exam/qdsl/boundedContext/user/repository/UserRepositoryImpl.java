@@ -19,9 +19,11 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     QSiteUser siteUser = QSiteUser.siteUser;
 
+
     return jpaQueryFactory
         .selectFrom(siteUser) // SELECT * FROM site_user
         .where(siteUser.id.eq(id)) // WHERE id = 1
         .fetchOne(); // 단일 결과 반환
+
   }
 }
