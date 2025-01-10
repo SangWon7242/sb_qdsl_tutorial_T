@@ -4,4 +4,6 @@ import com.sbs.exam.qdsl.boundedContext.user.entity.SiteUser;
 
 public interface UserRepositoryCustom {
   SiteUser getQslUser(Long id);
+
+  long getQslCount();
 }
