@@ -3,6 +3,8 @@ package com.sbs.exam.qdsl.boundedContext.user.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sbs.exam.qdsl.boundedContext.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -49,5 +51,20 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         .selectFrom(siteUser) // SELECT * FROM site_user
         .orderBy(siteUser.id.asc()) // ORDER BY id ASC
         .fetch();
+  }
+
+  @Override
+  public List<SiteUser> searchQsl(String kw) {
+    return jpaQueryFactory
+        .selectFrom(siteUser)
+        .where(
+            siteUser.username.contains(kw)
+                .or(siteUser.email.contains(kw))
+        ).fetch();
+  }
+
+  @Override
+  public Page<SiteUser> searchQsl(String kw, Pageable pageable) {
+    return null;
   }
 }
