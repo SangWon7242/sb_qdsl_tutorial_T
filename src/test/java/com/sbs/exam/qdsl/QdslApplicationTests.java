@@ -156,7 +156,9 @@ class QdslApplicationTests {
         ORDER BY site_user.id ASC
         LIMIT 1, 1
          */
-		// 전체 개수 계산하는 SQL
+		
+				// 쿼리가 두번 실행됨
+				// 전체 개수 계산하는 SQL
         /*
         SELECT COUNT(*)
         FROM site_user
