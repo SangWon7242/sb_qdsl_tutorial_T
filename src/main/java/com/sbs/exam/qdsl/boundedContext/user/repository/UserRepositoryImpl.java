@@ -4,6 +4,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sbs.exam.qdsl.boundedContext.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 import static com.sbs.exam.qdsl.boundedContext.user.entity.QSiteUser.siteUser;
 
 @RequiredArgsConstructor
@@ -39,5 +41,13 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         .orderBy(siteUser.id.asc()) // ORDER BY id ASC
         .limit(1) // LIMIT 1
         .fetchOne();
+  }
+
+  @Override
+  public List<SiteUser> getQslUsersOrderByIdAsc() {
+    return jpaQueryFactory
+        .selectFrom(siteUser) // SELECT * FROM site_user
+        .orderBy(siteUser.id.asc()) // ORDER BY id ASC
+        .fetch();
   }
 }
