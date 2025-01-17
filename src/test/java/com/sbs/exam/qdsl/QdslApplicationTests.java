@@ -31,11 +31,6 @@ class QdslApplicationTests {
 	@Test
 	@DisplayName("회원 생성")
 	void t1() {
-		/*
-		SiteUser u1 = new SiteUser(null, "user1", "{noop}1234", "user1@test.com");
-		SiteUser u2 = new SiteUser(null, "user2", "{noop}1234", "user2@test.com");
-		*/
-
 		SiteUser u3 = SiteUser.builder()
 				.username("user3")
 				.password("{noop}1234")
@@ -136,7 +131,7 @@ class QdslApplicationTests {
 	}
 
 	@Test
-	@DisplayName("검색, Page 리턴, id DESC, pageSize=1, page=0")
+	@DisplayName("검색, Page 리턴, id ASC, pageSize=1, page=0")
 	void t8() {
 		long totalCount = userRepository.count();
 		int pageSize = 1; // 한 페이지에 보여줄 아이템 개수
