@@ -97,6 +97,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     List<SiteUser> content = usersQuery.fetch();
 
     // 전체 개수 계산 쿼리
+    // 페이지네이션을 구현하려면 필수로 있어야 한다.
     JPAQuery<Long> usersCountQuery = jpaQueryFactory
         .select(siteUser.count())
         .from(siteUser)
