@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -210,12 +211,14 @@ class QdslApplicationTests {
 
 	@Test
 	@DisplayName("회원에게 관심사를 등록할 수 있다.")
+	@Rollback(false)
 	void t10() {
 		SiteUser u2 = userRepository.getQslUser(2L);
 		u2.addInterestKeywordContent("테니스");
 		u2.addInterestKeywordContent("오버워치");
 		u2.addInterestKeywordContent("축구");
 		u2.addInterestKeywordContent("헬스"); // 중복등록은 무시
+		u2.addInterestKeywordContent("헬스");
 
 		userRepository.save(u2);
 		// 엔티티클래스 : InterestKeyword(interest_keyword 테이블)
