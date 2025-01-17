@@ -1,13 +1,17 @@
 package com.sbs.exam.qdsl.boundedContext.user.repository;
 
-import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sbs.exam.qdsl.boundedContext.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -78,19 +82,27 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     // QueryDSL로 데이터 조회
     // QueryResults : 쿼리 실행 결과와 함께 페이징을 위한 추가 정보 포함
-    QueryResults<SiteUser> results = jpaQueryFactory
+    JPAQuery<SiteUser> usersQuery = jpaQueryFactory
         .selectFrom(siteUser) // SELECT * FROM site_user
         .where(predicate) // WHERE username LIKE '%kw%' OR email LIKE '%kw%'
-        .orderBy(siteUser.id.asc()) // ORDER BY id ASC || 정렬 조건
         .offset(pageable.getOffset()) // 몇개를 건너 띄어야 하는지 LIMIT {1}, ? // 페이지 시작 위치
-        .limit(pageable.getPageSize()) // 한페이지에 몇개가 보여야 하는지 LIMIT ?, {1} // 페이지 크기
-        .fetchResults(); // 데이터와 총 데이터 수를 가져옴
+        .limit(pageable.getPageSize()); // 한페이지에 몇개가 보여야 하는지 LIMIT ?, {1} // 페이지 크기
+
+    for (Sort.Order o : pageable.getSort()) {
+      PathBuilder pathBuilder = new PathBuilder(siteUser.getType(), siteUser.getMetadata());
+      usersQuery.orderBy(new OrderSpecifier(o.isAscending() ? Order.ASC : Order.DESC, pathBuilder.get(o.getProperty())));
+    }
 
     // 결과를 Page 객체로 변환
-    List<SiteUser> content = results.getResults();
-    long total = results.getTotal(); // 총 데이터 수
+    List<SiteUser> content = usersQuery.fetch();
+
+    // 전체 개수 계산 쿼리
+    JPAQuery<Long> usersCountQuery = jpaQueryFactory
+        .select(siteUser.count())
+        .from(siteUser)
+        .where(predicate);
 
     // PageImpl : Page 인터페이스를 구현한 클래스
-    return new PageImpl<>(content, pageable, total);
+    return new PageImpl<>(content, pageable, usersCountQuery.fetchOne());
   }
 }
