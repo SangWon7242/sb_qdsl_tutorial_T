@@ -225,4 +225,17 @@ class QdslApplicationTests {
 		// 중간테이블도 생성되어야 함, 힌트 : @ManyToMany
 		// interest_keyword 테이블에 축구, 롤, 헬스에 해당하는 row 3개 생성
 	}
+
+	@Test
+	@DisplayName("야구에 관심이 있는 회원들 검색")
+	void t11() {
+		List<SiteUser> users = userRepository.getQslUsersByInterestKeyword("야구");
+
+		assertThat(users.size()).isEqualTo(1);
+		SiteUser u = users.get(0);
+		assertThat(u.getId()).isEqualTo(1L);
+		assertThat(u.getUsername()).isEqualTo("user1");
+		assertThat(u.getEmail()).isEqualTo("user1@test.com");
+		assertThat(u.getPassword()).isEqualTo("{noop}1234");
+	}
 }

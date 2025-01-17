@@ -106,4 +106,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     // PageImpl : Page 인터페이스를 구현한 클래스
     return new PageImpl<>(content, pageable, usersCountQuery.fetchOne());
   }
+
+  @Override
+  public List<SiteUser> getQslUsersByInterestKeyword(String keywordContent) {
+    return null;
+  }
 }

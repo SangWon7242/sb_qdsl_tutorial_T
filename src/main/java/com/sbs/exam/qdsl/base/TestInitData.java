@@ -31,7 +31,7 @@ public class TestInitData {
 
       u1.addInterestKeywordContent("야구");
       u1.addInterestKeywordContent("배구");
-      
+
       u2.addInterestKeywordContent("요가");
       u2.addInterestKeywordContent("클라이밍");
 
