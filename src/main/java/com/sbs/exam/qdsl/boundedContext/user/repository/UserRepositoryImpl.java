@@ -109,6 +109,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
   @Override
   public List<SiteUser> getQslUsersByInterestKeyword(String keywordContent) {
-    return null;
+    return jpaQueryFactory
+        .selectFrom(siteUser)
+        .innerJoin(siteUser.interestKeywords)
+        .fetch();
   }
 }
