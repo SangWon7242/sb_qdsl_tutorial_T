@@ -258,7 +258,7 @@ class QdslApplicationTests {
 		SiteUser u1 = userRepository.getQslUser(1L);
 		SiteUser u2 = userRepository.getQslUser(2L);
 
-		u1.follow(u2); // u1이 u2의 팔로워가 된다.
+		u1.follow(u2); // u1이 u2를 팔로우 한다.
 
 		userRepository.save(u2);
 	}
