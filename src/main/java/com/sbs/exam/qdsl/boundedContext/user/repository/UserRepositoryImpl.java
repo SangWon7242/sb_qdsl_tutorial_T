@@ -6,8 +6,6 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.sbs.exam.qdsl.boundedContext.interestKeyword.QInterestKeyword;
-import com.sbs.exam.qdsl.boundedContext.user.entity.QSiteUser;
 import com.sbs.exam.qdsl.boundedContext.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,6 +15,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
+import static com.sbs.exam.qdsl.boundedContext.interestKeyword.QInterestKeyword.interestKeyword;
 import static com.sbs.exam.qdsl.boundedContext.user.entity.QSiteUser.siteUser;
 
 @RequiredArgsConstructor
@@ -111,14 +110,11 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
   @Override
   public List<SiteUser> getQslUsersByInterestKeyword(String keywordContent) {
-    QSiteUser SU = QSiteUser.siteUser; // 별칭: su
-    QInterestKeyword IK = QInterestKeyword.interestKeyword; // 별칭: ik
-
     return jpaQueryFactory
-        .selectFrom(SU) // SELECT *FROM site_user AS SU
-        .innerJoin(SU.interestKeywords, IK) // INNER JOIN site_user_interest_keywords AS IK
+        .selectFrom(siteUser) // SELECT *FROM site_user AS SU
+        .innerJoin(siteUser.interestKeywords, interestKeyword) // INNER JOIN site_user_interest_keywords AS IK
         .where(
-            IK.content.eq(keywordContent)
+            interestKeyword.content.eq(keywordContent)
         ) // WHERE IK.content = :keyword
         .fetch(); // 결과 가져오기
   }
