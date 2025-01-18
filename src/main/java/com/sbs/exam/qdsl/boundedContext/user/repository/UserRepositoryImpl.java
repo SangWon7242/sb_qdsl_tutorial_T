@@ -118,6 +118,4 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         ) // WHERE IK.content = :keyword
         .fetch(); // 결과 가져오기
   }
-
-
 }

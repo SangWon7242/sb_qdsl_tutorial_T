@@ -29,11 +29,14 @@ public class TestInitData {
           .email("user2@test.com")
           .build();
 
+      userRepository.saveAll(Arrays.asList(u1, u2));
+
       u1.addInterestKeywordContent("야구");
       u1.addInterestKeywordContent("배구");
 
       u2.addInterestKeywordContent("요가");
       u2.addInterestKeywordContent("클라이밍");
+      u2.addInterestKeywordContent("야구");
 
       userRepository.saveAll(Arrays.asList(u1, u2));
     };
