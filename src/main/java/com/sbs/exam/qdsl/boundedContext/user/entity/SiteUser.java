@@ -46,4 +46,8 @@ public class SiteUser {
 
     following.getFollowers().add(this);
   }
+
+  public Set<Object> getFollowings() {
+    return new HashSet<>();
+  }
 }
