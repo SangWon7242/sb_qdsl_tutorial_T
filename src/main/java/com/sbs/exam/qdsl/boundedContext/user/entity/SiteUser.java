@@ -40,6 +40,10 @@ public class SiteUser {
   }
 
   public void follow(SiteUser following) {
+    if (this == following) return;
+    if (following == null) return;
+    if (this.getId() == following.getId()) return;
+
     following.getFollowers().add(this);
   }
 }
