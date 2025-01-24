@@ -29,7 +29,41 @@ public class TestInitData {
           .email("user2@test.com")
           .build();
 
-      userRepository.saveAll(Arrays.asList(u1, u2));
+      SiteUser u3 = SiteUser.builder()
+          .username("user3")
+          .password("{noop}1234")
+          .email("user3@test.com")
+          .build();
+
+      SiteUser u4 = SiteUser.builder()
+          .username("user4")
+          .password("{noop}1234")
+          .email("user4@test.com")
+          .build();
+
+      SiteUser u5 = SiteUser.builder()
+          .username("user5")
+          .password("{noop}1234")
+          .email("user5@test.com")
+          .build();
+
+      SiteUser u6 = SiteUser.builder()
+          .username("user6")
+          .password("{noop}1234")
+          .email("user6@test.com")
+          .build();
+
+      SiteUser u7 = SiteUser.builder()
+          .username("user7")
+          .password("{noop}1234")
+          .email("user7@test.com")
+          .build();
+
+      SiteUser u8 = SiteUser.builder()
+          .username("user8")
+          .password("{noop}1234")
+          .email("user8@test.com")
+          .build();
 
       u1.addInterestKeywordContent("야구");
       u1.addInterestKeywordContent("배구");
@@ -38,7 +72,7 @@ public class TestInitData {
       u2.addInterestKeywordContent("클라이밍");
       u2.addInterestKeywordContent("포켓볼");
 
-      userRepository.saveAll(Arrays.asList(u1, u2));
+      userRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5, u6, u7, u8));
     };
   }
 }
