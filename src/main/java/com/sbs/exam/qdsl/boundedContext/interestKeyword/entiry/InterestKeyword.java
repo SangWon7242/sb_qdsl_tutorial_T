@@ -7,6 +7,7 @@ import jakarta.persistence.IdClass;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
 
+
 @Entity
 @Setter
 @Getter

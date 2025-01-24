@@ -274,7 +274,6 @@ class QdslApplicationTests {
 
 	@Test
 	@DisplayName("특정회원의 follower들과 following들을 모두 알 수 있어야 한다.")
-	@Rollback(false)
 	void t15() {
 		SiteUser u1 = userRepository.getQslUser(1L);
 		SiteUser u2 = userRepository.getQslUser(2L);
@@ -295,5 +294,14 @@ class QdslApplicationTests {
 		// following
 		// u2가 구독중인 회원 : 0
 		assertThat(u2.getFollowings().size()).isEqualTo(0);
+	}
+
+	@Test
+	@DisplayName("u1은 더 이상 야구에 관심이 없습니다.")
+	@Rollback(false)
+	void t16() {
+		SiteUser u1 = userRepository.getQslUser(1L);
+		
+		u1.removeInterestKeywordContent("야구");
 	}
 }
