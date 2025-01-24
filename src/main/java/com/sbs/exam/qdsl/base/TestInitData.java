@@ -72,7 +72,19 @@ public class TestInitData {
       u2.addInterestKeywordContent("클라이밍");
       u2.addInterestKeywordContent("포켓볼");
 
-      userRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5, u6, u7, u8));
+      userRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5, u6, u7, u8)); // PERSIST
+
+      u8.follow(u7); // 8번 회원이 7번 회원을 구독(팔로잉) 한다. -- 7번 회원의 팔로워는 8번 회원이다.
+      u8.follow(u6);
+      u8.follow(u5);
+      u8.follow(u4);
+      u8.follow(u3);
+      u7.follow(u6);
+      u7.follow(u5);
+      u7.follow(u4);
+      u7.follow(u3);
+
+      userRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5, u6, u7, u8)); // MERGE
     };
   }
 }
