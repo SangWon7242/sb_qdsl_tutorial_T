@@ -15,7 +15,8 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
-import static com.sbs.exam.qdsl.boundedContext.interestKeyword.QInterestKeyword.interestKeyword;
+
+import static com.sbs.exam.qdsl.boundedContext.interestKeyword.entiry.QInterestKeyword.interestKeyword;
 import static com.sbs.exam.qdsl.boundedContext.user.entity.QSiteUser.siteUser;
 
 @RequiredArgsConstructor

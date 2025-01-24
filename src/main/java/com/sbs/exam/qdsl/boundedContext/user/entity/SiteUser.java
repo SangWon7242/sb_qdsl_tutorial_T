@@ -1,6 +1,6 @@
 package com.sbs.exam.qdsl.boundedContext.user.entity;
 
-import com.sbs.exam.qdsl.boundedContext.interestKeyword.InterestKeyword;
+import com.sbs.exam.qdsl.boundedContext.interestKeyword.entiry.InterestKeyword;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,7 +28,7 @@ public class SiteUser {
   private String email;
 
   @Builder.Default
-  @ManyToMany(cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
   private Set<InterestKeyword> interestKeywords = new HashSet<>();
 
   @Builder.Default
@@ -40,7 +40,7 @@ public class SiteUser {
   private Set<SiteUser> followings = new HashSet<>();
 
   public void addInterestKeywordContent(String keywordContent) {
-    interestKeywords.add(new InterestKeyword(keywordContent));
+    interestKeywords.add(new InterestKeyword(this, keywordContent));
   }
 
   public void follow(SiteUser following) {
@@ -53,9 +53,5 @@ public class SiteUser {
 
     // 내(follower)가 유튜버(following)를 구독한다.
     getFollowings().add(following);
-  }
-
-  public Set<Object> getFollowings() {
-    return new HashSet<>();
   }
 }
