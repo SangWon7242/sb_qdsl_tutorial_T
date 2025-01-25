@@ -72,6 +72,13 @@ public class TestInitData {
       u2.addInterestKeywordContent("클라이밍");
       u2.addInterestKeywordContent("포켓볼");
 
+      u3.addInterestKeywordContent("첼로");
+      u4.addInterestKeywordContent("바이롤린");
+      u5.addInterestKeywordContent("베이스");
+      u6.addInterestKeywordContent("일렉기타");
+      u7.addInterestKeywordContent("트럼펫");
+      u8.addInterestKeywordContent("댄스");
+
       userRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5, u6, u7, u8)); // PERSIST
 
       u8.follow(u7); // 8번 회원이 7번 회원을 구독(팔로잉) 한다. -- 7번 회원의 팔로워는 8번 회원이다.

@@ -6,6 +6,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.sbs.exam.qdsl.boundedContext.user.entity.QSiteUser;
 import com.sbs.exam.qdsl.boundedContext.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -112,11 +113,33 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
   @Override
   public List<SiteUser> getQslUsersByInterestKeyword(String keywordContent) {
     return jpaQueryFactory
-        .selectFrom(siteUser) // SELECT *FROM site_user AS SU
+        .selectFrom(siteUser) // SELECT * FROM site_user AS SU
         .innerJoin(siteUser.interestKeywords, interestKeyword) // INNER JOIN site_user_interest_keywords AS IK
         .where(
             interestKeyword.content.eq(keywordContent)
         ) // WHERE IK.content = :keyword
         .fetch(); // 결과 가져오기
+  }
+
+  @Override
+  public List<String> getKeywordContentsByFollowingOf(SiteUser user) {
+    /*
+    // SELECT DISTINCT IK.content
+    .select(interestKeyword.content)
+    .distinct()
+    */
+
+    QSiteUser SiteUser2  = new QSiteUser("SiteUser2");
+
+    return jpaQueryFactory
+        .select(interestKeyword.content)
+        .distinct()
+        .from(interestKeyword)
+        .innerJoin(interestKeyword.user, siteUser) // interestKeyword와 siteUser를 조인
+        .innerJoin(siteUser.followers, SiteUser2) // siteUser와 followers를 조인
+        .where(
+            SiteUser2.id.eq(user.getId()) // siteUser의 id가 user의 id와 같은 경우
+        )
+        .fetch();
   }
 }
